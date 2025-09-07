@@ -13,32 +13,53 @@ pipeline {
     }
     stage('Run Tests') {
       steps {
-        sh 'npm test || true' // Allows pipeline to continue despite test failures
+        sh 'npm test || true'
       }
       post {
-         always {
-               mail to: "brennanterreoz@gmail.com",
-                  subject: "Build Status Email",
-                  body: "Build log attached!"
-         }
+        success {
+          emailext(
+            to: "brennanterreoz@gmail.com",
+            subject: "Run Tests: SUCCESS",
+            body: "The Run Tests stage completed successfully.",
+            attachLog: true
+          )
+        }
+        failure {
+          emailext(
+            to: "brennanterreoz@gmail.com",
+            subject: "Run Tests: FAILURE",
+            body: "The Run Tests stage failed. Please see the attached log.",
+            attachLog: true
+          )
+        }
       }
     }
     stage('Generate Coverage Report') {
       steps {
-        // Ensure coverage report exists
         sh 'npm run coverage || true'
       }
     }
     stage('NPM Audit (Security Scan)') {
       steps {
-        sh 'npm audit || true' // a This will show known CVEs in the output
+        sh 'npm audit || true'
       }
       post {
-         always {
-               mail to: "brennanterreoz@gmail.com",
-                  subject: "Build Status Email",
-                  body: "Build log attached!"
-         }
+        success {
+          emailext(
+            to: "brennanterreoz@gmail.com",
+            subject: "Security Scan: SUCCESS",
+            body: "The NPM Audit stage completed successfully.",
+            attachLog: true
+          )
+        }
+        failure {
+          emailext(
+            to: "brennanterreoz@gmail.com",
+            subject: "Security Scan: FAILURE",
+            body: "The NPM Audit stage failed. Please see the attached log.",
+            attachLog: true
+          )
+        }
       }
     }
   }
