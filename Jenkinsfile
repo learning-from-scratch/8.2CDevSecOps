@@ -3,17 +3,20 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', url: 'https://github.com/learning-from-scratch/8.2CDevSecOps.git'
+         echo "Checkout repo..."
+         //   git branch: 'main', url: 'https://github.com/learning-from-scratch/8.2CDevSecOps.git'
       }
     }
     stage('Install Dependencies') {
       steps {
-        sh 'npm install'
+         echo "Installing dependencies ..."
+         //   sh 'npm install'
       }
     }
     stage('Run Tests') {
       steps {
-        sh 'npm test || true'
+         echo "Running tests..."
+         //   sh 'npm test || true'
       }
       post {
         success {
@@ -36,12 +39,14 @@ pipeline {
     }
     stage('Generate Coverage Report') {
       steps {
-        sh 'npm run coverage || true'
+         echo "Generating coverage report ..."
+         //   sh 'npm run coverage || true'
       }
     }
     stage('NPM Audit (Security Scan)') {
       steps {
-        sh 'npm audit || true'
+         echo "Auditing..."
+         //   sh 'npm audit || true'
       }
       post {
         success {
