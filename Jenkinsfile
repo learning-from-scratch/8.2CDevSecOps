@@ -24,7 +24,7 @@ pipeline {
     }
     stage('NPM Audit (Security Scan)') {
       steps {
-        sh 'npm audit || true' // This will show known CVEs in the output
+        sh 'npm audit || true' // a This will show known CVEs in the output
       }
     }
   }
