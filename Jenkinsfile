@@ -15,6 +15,13 @@ pipeline {
       steps {
         sh 'npm test || true' // Allows pipeline to continue despite test failures
       }
+      post {
+         always {
+               mail to: "brennanterreoz@gmail.com",
+                  subject: "Build Status Email",
+                  body: "Build log attached!"
+         }
+      }
     }
     stage('Generate Coverage Report') {
       steps {
@@ -25,6 +32,13 @@ pipeline {
     stage('NPM Audit (Security Scan)') {
       steps {
         sh 'npm audit || true' // a This will show known CVEs in the output
+      }
+      post {
+         always {
+               mail to: "brennanterreoz@gmail.com",
+                  subject: "Build Status Email",
+                  body: "Build log attached!"
+         }
       }
     }
   }
