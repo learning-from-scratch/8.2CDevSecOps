@@ -21,9 +21,7 @@ pipeline {
         echo "Running tests..."
         // let failures be failures so failure email can trigger
         sh 'npm test'
-      }
-      post {
-         emailext(
+        emailext(
          to: 'brennanterreoz@gmail.com',
          subject: 'Run Tests: SUCCESS',
          body: 'The Run Tests stage completed successfully.',
@@ -45,14 +43,12 @@ pipeline {
         echo "Auditing..."
         // let audit fail the stage so email triggers; remove || true
         sh 'npm audit'
-      }
-      post {
-         emailext(
-         to: 'brennanterreoz@gmail.com',
-         subject: 'Security Scan: SUCCESS',
-         body: 'The NPM Audit stage completed successfully.',
-         attachLog: true
-         )
+        emailext(
+            to: 'brennanterreoz@gmail.com',
+            subject: 'Security Scan: SUCCESS',
+            body: 'The NPM Audit stage completed successfully.',
+            attachLog: true
+            )
       }
     }
   }
