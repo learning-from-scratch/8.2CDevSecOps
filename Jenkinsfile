@@ -23,22 +23,12 @@ pipeline {
         sh 'npm test'
       }
       post {
-      //   success {
-          emailext(
-            to: 'brennanterreoz@gmail.com',
-            subject: 'Run Tests: SUCCESS',
-            body: 'The Run Tests stage completed successfully.',
-            attachLog: true
-          )
-      //   }
-        /* failure {
-          emailext(
-            to: 'brennanterreoz@gmail.com',
-            subject: 'Run Tests: FAILURE',
-            body: 'The Run Tests stage failed. See attached log.',
-            attachLog: true
-          )
-        } */
+         emailext(
+         to: 'brennanterreoz@gmail.com',
+         subject: 'Run Tests: SUCCESS',
+         body: 'The Run Tests stage completed successfully.',
+         attachLog: true
+         )
       }
     }
 
@@ -57,22 +47,12 @@ pipeline {
         sh 'npm audit'
       }
       post {
-      //   success {
-          emailext(
-            to: 'brennanterreoz@gmail.com',
-            subject: 'Security Scan: SUCCESS',
-            body: 'The NPM Audit stage completed successfully.',
-            attachLog: true
-          )
-        /* }
-        failure {
-          emailext(
-            to: 'brennanterreoz@gmail.com',
-            subject: 'Security Scan: FAILURE',
-            body: 'The NPM Audit stage failed. See attached log.',
-            attachLog: true
-          )
-        } */
+         emailext(
+         to: 'brennanterreoz@gmail.com',
+         subject: 'Security Scan: SUCCESS',
+         body: 'The NPM Audit stage completed successfully.',
+         attachLog: true
+         )
       }
     }
   }
