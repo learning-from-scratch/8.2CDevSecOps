@@ -7,11 +7,20 @@ pipeline {
         echo 'Halfway there...'
       }
       post {
-        always {
+        success {
           emailext(
             to: 'brennanterreoz@gmail.com',
-            subject: 'Midway Notification',
-            body: 'The pipeline reached the Notify Midway stage.',
+            subject: 'Smoke: SUCCESS',
+            body: 'Success. Log attached.',
+            attachLog: true,
+            mimeType: 'text/plain'
+          )
+        }
+        failure {
+          emailext(
+            to: 'brennanterreoz@gmail.com',
+            subject: 'Smoke: FAILURE',
+            body: 'Failure. Log attached.',
             attachLog: true,
             mimeType: 'text/plain'
           )
